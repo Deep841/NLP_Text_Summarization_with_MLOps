@@ -1,3 +1,7 @@
+# import sys
+# import os
+# sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
 from fastapi import FastAPI
 import uvicorn
 import sys
@@ -10,11 +14,14 @@ from textSummarizer.pipeline.prediction import PredictionPipeline
 
 text:str = "What is Text Summarization?"
 
+# creating FastAPI object
 app = FastAPI()
 
+# API Operations
 @app.get("/", tags=["authentication"])
 async def index():
     return RedirectResponse(url="/docs")
+# when visited to locahost:8080 it redirects to /docs
 
 
 
@@ -26,7 +33,7 @@ async def training():
 
     except Exception as e:
         return Response(f"Error Occurred! {e}")
-    
+# to trigger model training
 
 
 
@@ -43,3 +50,4 @@ async def predict_route(text):
 
 if __name__=="__main__":
     uvicorn.run(app, host="0.0.0.0", port=8080)
+# use predictionPipeline to summarise text and return summarised text (summary) 
